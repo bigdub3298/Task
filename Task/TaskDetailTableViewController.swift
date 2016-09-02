@@ -1,42 +1,43 @@
 //
-//  TaskListTableViewController.swift
+//  TaskDetailTableViewController.swift
 //  Task
 //
-//  Created by Wesley Austin on 8/31/16.
+//  Created by Wesley Austin on 9/2/16.
 //  Copyright © 2016 Wesley Austin. All rights reserved.
 //
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
-
+class TaskDetailTableViewController: UITableViewController {
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var dueDateTextField: UITextField!
+    @IBOutlet weak var notesTextView: UITextView!
+    
+    @IBOutlet weak var navigationBarItem: UINavigationItem!
+    
+    
+    var task: Task?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let task = task {
+            updateWithTask(task)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-      return TaskController.sharedController.tasks.count
-    }
-
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! ButtonTableViewCell
-        
-        let task = TaskController.sharedController.tasks[indexPath.row]
-        cell.primaryLabel.text = task.name
-
-        return cell
+    func updateWithTask(task: Task) {
+        nameTextField.text = task.name
+        dueDateTextField.text = task.dueDate?.stringValue()
+        notesTextView.text = task.notes
+        navigationBarItem.title = task.name
     }
- 
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

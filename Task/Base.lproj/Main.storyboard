@@ -83,7 +83,7 @@
                                 <connections>
                                     <outlet property="button" destination="436-8C-TNn" id="E6W-5E-Fce"/>
                                     <outlet property="primaryLabel" destination="5ku-3Y-Yyr" id="Wn6-eY-KUf"/>
-                                    <segue destination="ezc-C8-hJa" kind="show" identifier="addTask" id="xwS-9s-a81"/>
+                                    <segue destination="ezc-C8-hJa" kind="show" identifier="showTaskDetail" id="BDJ-oc-iEG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" title="Tasks" id="ezs-Ha-2yQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="y3D-ht-i7B">
                             <connections>
-                                <segue destination="ezc-C8-hJa" kind="show" identifier="showTaskDetail" id="CsP-mY-T66"/>
+                                <segue destination="ezc-C8-hJa" kind="show" identifier="addTask" id="F8c-lc-NFR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -106,10 +106,10 @@
             </objects>
             <point key="canvasLocation" x="926" y="366"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Name-->
         <scene sceneID="CRP-u7-OAv">
             <objects>
-                <tableViewController id="ezc-C8-hJa" sceneMemberID="viewController">
+                <tableViewController id="ezc-C8-hJa" customClass="TaskDetailTableViewController" customModule="Task" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Gz-iS-RC2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,7 +124,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R1M-0W-Gkt">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R1M-0W-Gkt">
                                                     <rect key="frame" x="8" y="8" width="584" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -149,7 +149,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yZo-Mu-g8z">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Due Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yZo-Mu-g8z">
                                                     <rect key="frame" x="8" y="8" width="584" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -177,7 +177,7 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tQP-oW-4ZY">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="240.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -198,10 +198,20 @@
                             <outlet property="delegate" destination="ezc-C8-hJa" id="n7m-KG-KXD"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Name" id="2Re-L7-R0P">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lws-0k-zaq"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qwB-XY-4No"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dueDateTextField" destination="yZo-Mu-g8z" id="yVn-3S-mk6"/>
+                        <outlet property="nameTextField" destination="R1M-0W-Gkt" id="D04-Vb-0DY"/>
+                        <outlet property="navigationBarItem" destination="2Re-L7-R0P" id="7bH-9I-hXQ"/>
+                        <outlet property="notesTextView" destination="tQP-oW-4ZY" id="zZI-A8-VSb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJ1-2h-Ken" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1700" y="366"/>
+            <point key="canvasLocation" x="1644" y="366"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yzx-FT-uHL">
@@ -219,11 +229,29 @@
             </objects>
             <point key="canvasLocation" x="106" y="366"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xal-gU-5eM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wfE-pr-5an" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kkV-dM-7KQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ezc-C8-hJa" kind="relationship" relationship="rootViewController" id="hVq-5Z-bzk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jU9-J8-CPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1644" y="-398"/>
+        </scene>
     </scenes>
     <resources>
         <image name="incomplete" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CsP-mY-T66"/>
+        <segue reference="F8c-lc-NFR"/>
     </inferredMetricsTieBreakers>
 </document>

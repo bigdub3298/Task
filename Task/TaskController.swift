@@ -40,6 +40,7 @@ class TaskController {
     func addTask(task: Task) {
         tasks.append(task)
     }
+    
     // Update
     func updateTask(task: Task, name: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
         task.name = name

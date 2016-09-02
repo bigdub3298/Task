@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
+class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +31,31 @@ class TaskListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! ButtonTableViewCell
         
         let task = TaskController.sharedController.tasks[indexPath.row]
-        cell.primaryLabel.text = task.name
+        
+        cell.delegate = self
+        cell.updateWithTask(task)
 
         return cell
     }
  
 
+    func buttonCellButtonTapped(sender: ButtonTableViewCell) {
+        
+        if let indexPath = tableView.indexPathForCell(sender) {
+            let task = TaskController.sharedController.tasks[indexPath.row]
+            
+            if task.isComplete {
+                task.isComplete = false
+            } else {
+                task.isComplete = true
+            }
+            
+            sender.updateButton(task.isComplete)
+            
+            // Must reload cell instead of entire table view 
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -18,6 +18,7 @@ class TaskDetailTableViewController: UITableViewController {
     
     
     var task: Task?
+    var dueDateValue: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,17 @@ class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if saveButton === sender {
+            let name = nameTextField.text ?? ""
+            let dueDate = dueDateValue
+            let notes = notesTextView.text ?? ""
+            let isComplete = false
+            
+            task = Task(name: name, notes: notes, dueDate: dueDate, isComplete: isComplete) 
+        }
+    }
+    
     @IBAction func cancel(sender: UIBarButtonItem) {
         let isPresentingInAddTaskMode = presentingViewController is UINavigationController
         
@@ -52,10 +64,8 @@ class TaskDetailTableViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction func datePickerValueChanged(sender: UIDatePicker) {
-        if sender.date != NSDate() {
-            task?.dueDate = sender.date
-            dueDateTextField.text = task?.dueDate?.stringValue()
-        }
+        dueDateValue = sender.date
+        dueDateTextField.text = dueDateValue?.stringValue()
     }
     
     @IBAction func userTappedView(sender: UITapGestureRecognizer) {

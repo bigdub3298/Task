@@ -207,7 +207,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qwB-XY-4No">
                             <connections>
-                                <segue destination="kdh-t1-qYc" kind="unwind" unwindAction="unwindToTaskListView:" id="bGq-9m-zKh"/>
+                                <segue destination="kdh-t1-qYc" kind="unwind" unwindAction="unwindToTaskListView:" id="KYa-K2-8nf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

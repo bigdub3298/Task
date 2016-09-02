@@ -115,6 +115,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <toolbar key="tableFooterView" hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Fb1-DH-udd">
+                            <rect key="frame" x="0.0" y="477" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem systemItem="cancel" id="Cce-H8-wYj"/>
+                            </items>
+                        </toolbar>
                         <sections>
                             <tableViewSection headerTitle="Name" id="jIf-CF-1PO">
                                 <cells>
@@ -218,6 +225,7 @@
                         <outlet property="navigationBarItem" destination="2Re-L7-R0P" id="7bH-9I-hXQ"/>
                         <outlet property="notesTextView" destination="tQP-oW-4ZY" id="zZI-A8-VSb"/>
                         <outlet property="saveButton" destination="qwB-XY-4No" id="h2k-Qx-1cS"/>
+                        <outlet property="toolbar" destination="Fb1-DH-udd" id="DVE-m8-o1q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJ1-2h-Ken" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -238,7 +246,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2148" y="366"/>
+            <point key="canvasLocation" x="2428" y="366"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yzx-FT-uHL">
@@ -272,13 +280,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jU9-J8-CPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1548" y="1102"/>
+            <point key="canvasLocation" x="1684" y="1110"/>
         </scene>
     </scenes>
     <resources>
         <image name="incomplete" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BDJ-oc-iEG"/>
+        <segue reference="hVq-5Z-bzk"/>
     </inferredMetricsTieBreakers>
 </document>

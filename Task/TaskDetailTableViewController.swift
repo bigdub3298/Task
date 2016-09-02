@@ -8,14 +8,14 @@
 
 import UIKit
 
-class TaskDetailTableViewController: UITableViewController {
+class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet var dueDatePicker: UIDatePicker!
     @IBOutlet weak var navigationBarItem: UINavigationItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    @IBOutlet weak var toolbar: UIToolbar!
     
     var task: Task?
     var dueDateValue: NSDate?
@@ -23,6 +23,8 @@ class TaskDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        dueDateTextField.delegate = self
+        
         if let task = task {
             updateWithTask(task)
         }
@@ -35,6 +37,12 @@ class TaskDetailTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Text Field Delegate 
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        toolbar.hidden = false
     }
     
     // MARK: - Navigation
@@ -72,6 +80,7 @@ class TaskDetailTableViewController: UITableViewController {
         nameTextField.resignFirstResponder()
         dueDateTextField.resignFirstResponder()
         saveButton.enabled = true
+        toolbar.hidden = true
     }
     
     // MARK: - Helper Functions 

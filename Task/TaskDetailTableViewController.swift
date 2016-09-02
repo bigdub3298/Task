@@ -12,11 +12,12 @@ class TaskDetailTableViewController: UITableViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
-    
+    @IBOutlet var dueDatePicker: UIDatePicker!
     @IBOutlet weak var navigationBarItem: UINavigationItem!
     
     
     var task: Task?
+    var dueDateValue: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,8 @@ class TaskDetailTableViewController: UITableViewController {
         if let task = task {
             updateWithTask(task)
         }
+        
+        dueDateTextField.inputView = dueDatePicker
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,5 +85,24 @@ class TaskDetailTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func cancel(sender: UIBarButtonItem) {
+        let isPresentingInAddTaskMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddTaskMode {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
 
+    @IBAction func datePickerValueChanged(sender: UIDatePicker) {
+        dueDateValue = sender.date
+    }
+    
+    @IBAction func userTappedView(sender: UITapGestureRecognizer) {
+        nameTextField.resignFirstResponder()
+        dueDateTextField.resignFirstResponder() 
+    }
 }

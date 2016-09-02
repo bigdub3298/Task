@@ -81,5 +81,28 @@ class TaskListTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func unwindToTaskListView(sender: UIStoryboardSegue)  {
+        if let sourceViewController = sender.sourceViewController as? TaskDetailTableViewController, let task = sourceViewController.task {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                let selectedTask = TaskController.sharedController.tasks[selectedIndexPath.row]
+                TaskController.sharedController.updateTask(selectedTask, name: task.name, notes: task.notes, dueDate: task.dueDate, isComplete: task.isComplete)
+                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+            } else {
+                let indexPath = NSIndexPath(forItem: TaskController.sharedController.tasks.count, inSection: 0)
+                TaskController.sharedController.addTask(task)
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+            }
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+

@@ -43,13 +43,20 @@ class TaskController {
     
     // Update
     func updateTask(task: Task, name: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
-        task.name = name
-        task.isComplete = isComplete
         
-        if let notes = notes, let dueDate = dueDate {
-            task.notes = notes
-            task.dueDate = dueDate
+        if let index = tasks.indexOf(task) {
+            let taskToUpdate = tasks[index]
+            taskToUpdate.name = name
+            taskToUpdate.isComplete = isComplete
+            
+            if let notes = notes, let dueDate = dueDate {
+                taskToUpdate.notes = notes
+                taskToUpdate.dueDate = dueDate
+            }
+            
+            tasks[index] = taskToUpdate
         }
+       
     }
     
     // Delete

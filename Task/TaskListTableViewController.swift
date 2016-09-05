@@ -21,39 +21,16 @@ class TaskListTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Incomplete"
-        } else {
-            return "Complete" 
-        }
-    }
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 0 {
-            return TaskController.sharedController.incompleteTasks.count
-        } else {
-            return TaskController.sharedController.completedTasks.count
-        }
+      return TaskController.sharedController.tasks.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! ButtonTableViewCell
         
-        var task: Task
-        if indexPath.section == 0 {
-            task = TaskController.sharedController.tasks[indexPath.row]
-        } else {
-            let index = TaskController.sharedController.completedTasks.count * indexPath.section + indexPath.row
-            task = TaskController.sharedController.tasks[index]
-        }
-        
+        let task = TaskController.sharedController.tasks[indexPath.row]
         cell.primaryLabel.text = task.name
 
         return cell
@@ -95,14 +72,45 @@ class TaskListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showTaskDetail" {
+            let taskDetailTableView = segue.destinationViewController as! TaskDetailTableViewController
+            
+            if let selectedCell = sender as? ButtonTableViewCell, let indexPath = tableView.indexPathForCell(selectedCell) {
+                let selectedTask = TaskController.sharedController.tasks[indexPath.row]
+                taskDetailTableView.task = selectedTask
+            }
+        } else if segue.identifier == "addTask" {
+            
+        }
     }
-    */
+ 
+    
+    @IBAction func unwindToTaskListView(sender: UIStoryboardSegue)  {
+        if let sourceViewController = sender.sourceViewController as? TaskDetailTableViewController, let task = sourceViewController.task {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                let selectedTask = TaskController.sharedController.tasks[selectedIndexPath.row]
+                TaskController.sharedController.updateTask(selectedTask, name: task.name, notes: task.notes, dueDate: task.dueDate, isComplete: task.isComplete)
+                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+            } else {
+                let indexPath = NSIndexPath(forItem: TaskController.sharedController.tasks.count, inSection: 0)
+                TaskController.sharedController.addTask(task)
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+            }
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+

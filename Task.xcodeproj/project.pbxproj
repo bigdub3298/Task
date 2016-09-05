@@ -16,6 +16,8 @@
 		CFFA79091D77B5BC003E402F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFA79081D77B5BC003E402F /* Task.swift */; };
 		CFFA790B1D77B661003E402F /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFA790A1D77B661003E402F /* TaskController.swift */; };
 		CFFA790D1D77F7E9003E402F /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFA790C1D77F7E9003E402F /* ButtonTableViewCell.swift */; };
+		CFFA790F1D79C9F6003E402F /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFA790E1D79C9F6003E402F /* TaskDetailTableViewController.swift */; };
+		CFFA79111D79CB28003E402F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFA79101D79CB28003E402F /* DateHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		CFFA79081D77B5BC003E402F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		CFFA790A1D77B661003E402F /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		CFFA790C1D77F7E9003E402F /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		CFFA790E1D79C9F6003E402F /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
+		CFFA79101D79CB28003E402F /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,8 @@
 			children = (
 				CFFA78E61D77B25D003E402F /* AppDelegate.swift */,
 				CFFA78EA1D77B25D003E402F /* Main.storyboard */,
+				CFFA79101D79CB28003E402F /* DateHelper.swift */,
+				CFFA790E1D79C9F6003E402F /* TaskDetailTableViewController.swift */,
 				CFFA79061D77B3D9003E402F /* TaskListTableViewController.swift */,
 				CFFA790C1D77F7E9003E402F /* ButtonTableViewCell.swift */,
 				CFFA79081D77B5BC003E402F /* Task.swift */,
@@ -211,6 +217,8 @@
 				CFFA790D1D77F7E9003E402F /* ButtonTableViewCell.swift in Sources */,
 				CFFA790B1D77B661003E402F /* TaskController.swift in Sources */,
 				CFFA78E71D77B25D003E402F /* AppDelegate.swift in Sources */,
+				CFFA79111D79CB28003E402F /* DateHelper.swift in Sources */,
+				CFFA790F1D79C9F6003E402F /* TaskDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +408,7 @@
 				CFFA79021D77B25D003E402F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CFFA79031D77B25D003E402F /* Build configuration list for PBXNativeTarget "TaskTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +417,7 @@
 				CFFA79051D77B25D003E402F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

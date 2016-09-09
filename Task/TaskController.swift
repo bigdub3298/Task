@@ -7,77 +7,80 @@
 //
 
 import UIKit
+import CoreData
 
 class TaskController {
     
-    static var sharedController = TaskController()
+    static let sharedController = TaskController()
     
-    // Read
-    var tasks: [Task]
-    
-    var mockTasks: [Task] {
-        let task1 = Task(name: "Take out the garbage", notes: nil, dueDate: nil, isComplete: false)
-        let task2 = Task(name: "Mow the lawn", notes: nil, dueDate: nil, isComplete: false)
-        let task3 = Task(name: "Build task view heiarchy", notes: nil, dueDate: nil, isComplete: true)
-        
-        return [task1, task2, task3]
-    }
-    
-    var completedTasks: [Task] {
-        return tasks.filter({$0.isComplete == true})
+    var tasks: [Task] {
+        return tasksWithPredicate(nil)
     }
     
     var incompleteTasks: [Task] {
-        return tasks.filter({$0.isComplete == false})
+        let predicate = NSPredicate(format: "isComplete == FALSE")
+        return tasksWithPredicate(predicate)
     }
     
-    init() {
-        tasks = [Task]()
-        tasks.appendContentsOf(mockTasks) 
+    var completeTasks: [Task] {
+        let predicate = NSPredicate(format: "isComplete == TRUE")
+        return tasksWithPredicate(predicate)
     }
+//    let fetchedResulteController: NSFetchedResultsController
+    
+    
+    init() {
+        /*
+        let fetchRequest = NSFetchRequest(entityName: Task.className)
+        
+        let completedSortDescriptor = NSSortDescriptor(key: "isComplete", ascending: true)
+        let dueSortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
+        fetchRequest.sortDescriptors = [completedSortDescriptor, dueSortDescriptor]
+        
+        self.fetchedResulteController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Stack.sharedStack.managedObjectContext, sectionNameKeyPath: "isComplete", cacheName: nil)
+        
+        do {
+            try fetchedResulteController.performFetch()
+        } catch let error as NSError {
+            print("Unable to perform fetch request \(error.localizedDescription)")
+        }
+    */
+    }
+ 
     
     // Create
     func addTask(task: Task) {
-        tasks.append(task)
+        
+        Stack.saveToPersistentStore()
+    }
+    
+    // Remove
+    func removeTask(task: Task) {
+        task.managedObjectContext?.deleteObject(task)
     }
     
     // Update
     func updateTask(task: Task, name: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
-        
-        if let index = tasks.indexOf(task) {
-            let taskToUpdate = tasks[index]
-            taskToUpdate.name = name
-            taskToUpdate.isComplete = isComplete
-            
-            if let notes = notes, let dueDate = dueDate {
-                taskToUpdate.notes = notes
-                taskToUpdate.dueDate = dueDate
-            }
-            
-            tasks[index] = taskToUpdate
-        }
-       
+        task.name = name
+        task.notes = notes
+        task.dueDate = dueDate
+        task.isComplete = isComplete
     }
     
-    // Delete
-    func removeTask(task: Task) {
-        if let index = tasks.indexOf(task) {
-            tasks.removeAtIndex(index)
+    
+    func tasksWithPredicate(predicate: NSPredicate?) -> [Task] {
+        let request = NSFetchRequest(entityName: Task.className)
+        request.predicate = predicate
+        
+        let moc = Stack.sharedStack.managedObjectContext
+        
+        do {
+            return try moc.executeFetchRequest(request) as! [Task]
+        } catch {
+            print("Error loading task. Items not loaded")
+            return []
         }
     }
-    
-    // Contains 
-    func containsTask(task: Task) -> Bool {
-        
-        for t in tasks {
-            if t == task {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
 }
 
 

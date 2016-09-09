@@ -44,13 +44,9 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         if let indexPath = tableView.indexPathForCell(sender) {
             let task = TaskController.sharedController.tasks[indexPath.row]
             
-            if task.isComplete {
-                task.isComplete = false
-            } else {
-                task.isComplete = true
-            }
-            
-            sender.updateButton(task.isComplete)
+            task.isComplete = !task.isComplete.boolValue
+            Stack.saveToPersistentStore()
+            sender.updateButton(task.isComplete.boolValue)
             
             // Must reload cell instead of entire table view 
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
@@ -64,17 +60,19 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
+            let task = TaskController.sharedController.tasks[indexPath.row]
+            TaskController.sharedController.removeTask(task)
+            Stack.saveToPersistentStore()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+ 
 
     /*
     // Override to support rearranging the table view.
@@ -113,12 +111,11 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         if let sourceViewController = sender.sourceViewController as? TaskDetailTableViewController, let task = sourceViewController.task {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 let selectedTask = TaskController.sharedController.tasks[selectedIndexPath.row]
-                TaskController.sharedController.updateTask(selectedTask, name: task.name, notes: task.notes, dueDate: task.dueDate, isComplete: task.isComplete)
+                TaskController.sharedController.updateTask(selectedTask, name: task.name, notes: task.notes, dueDate: task.dueDate, isComplete: task.isComplete.boolValue)
                 tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             } else {
-                let indexPath = NSIndexPath(forItem: TaskController.sharedController.tasks.count, inSection: 0)
                 TaskController.sharedController.addTask(task)
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+                tableView.reloadData()
             }
         }
     }

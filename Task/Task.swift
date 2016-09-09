@@ -2,27 +2,30 @@
 //  Task.swift
 //  Task
 //
-//  Created by Wesley Austin on 8/31/16.
+//  Created by Wesley Austin on 9/8/16.
 //  Copyright © 2016 Wesley Austin. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import CoreData
 
-class Task: Equatable {
-    var name: String
-    var dueDate: NSDate?
-    var notes: String?
-    var isComplete: Bool
+
+class Task: NSManagedObject {
+
+// Insert code here to add functionality to your managed object subclass
+
+    static let className = "Task"
     
-    init(name: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
+    convenience init(name: String, notes: String? = nil, dueDate: NSDate? = nil, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+        
+        let entity = NSEntityDescription.entityForName(Task.className, inManagedObjectContext: context)!
+        
+        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        
         self.name = name
-        self.dueDate = dueDate
         self.notes = notes
-        self.isComplete = isComplete
+        self.dueDate = dueDate
+        self.isComplete = false 
+        
     }
-    
-}
-
-func ==(lhs: Task, rhs: Task) -> Bool {
-    return lhs.name == rhs.name
 }

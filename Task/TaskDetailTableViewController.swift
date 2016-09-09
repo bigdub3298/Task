@@ -52,9 +52,8 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate 
             let name = nameTextField.text ?? ""
             let dueDate = dueDateValue
             let notes = notesTextView.text ?? ""
-            let isComplete = false
             
-            task = Task(name: name, notes: notes, dueDate: dueDate, isComplete: isComplete) 
+            task = Task(name: name, notes: notes, dueDate: dueDate)
         }
     }
     

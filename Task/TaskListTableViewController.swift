@@ -14,6 +14,9 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         super.viewDidLoad()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -66,7 +69,6 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         if editingStyle == .Delete {
             let task = TaskController.sharedController.tasks[indexPath.row]
             TaskController.sharedController.removeTask(task)
-            Stack.saveToPersistentStore()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -103,20 +105,6 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
             }
         } else if segue.identifier == "addTask" {
             
-        }
-    }
- 
-    
-    @IBAction func unwindToTaskListView(sender: UIStoryboardSegue)  {
-        if let sourceViewController = sender.sourceViewController as? TaskDetailTableViewController, let task = sourceViewController.task {
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                let selectedTask = TaskController.sharedController.tasks[selectedIndexPath.row]
-                TaskController.sharedController.updateTask(selectedTask, name: task.name, notes: task.notes, dueDate: task.dueDate, isComplete: task.isComplete.boolValue)
-                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
-            } else {
-                TaskController.sharedController.addTask(task)
-                tableView.reloadData()
-            }
         }
     }
 

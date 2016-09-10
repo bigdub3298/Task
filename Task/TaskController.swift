@@ -13,9 +13,7 @@ class TaskController {
     
     static let sharedController = TaskController()
     
-    var tasks: [Task] {
-        return tasksWithPredicate(nil)
-    }
+    var tasks: [Task] = []
     
     var incompleteTasks: [Task] {
         let predicate = NSPredicate(format: "isComplete == FALSE")
@@ -45,28 +43,44 @@ class TaskController {
             print("Unable to perform fetch request \(error.localizedDescription)")
         }
     */
+        
+        tasks = fetchTasks()
     }
  
     
     // Create
     func addTask(task: Task) {
-        
         Stack.saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
     // Remove
     func removeTask(task: Task) {
         task.managedObjectContext?.deleteObject(task)
+        Stack.saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
     // Update
-    func updateTask(task: Task, name: String, notes: String?, dueDate: NSDate?, isComplete: Bool) {
+    func updateTask(task: Task, name: String, notes: String?, dueDate: NSDate?) {
         task.name = name
         task.notes = notes
         task.dueDate = dueDate
-        task.isComplete = isComplete
+        Stack.saveToPersistentStore()
     }
     
+    func fetchTasks() -> [Task] {
+        let request = NSFetchRequest(entityName: Task.className)
+        
+        let moc = Stack.sharedStack.managedObjectContext
+        
+        do {
+            return try moc.executeFetchRequest(request) as! [Task]
+        } catch {
+            print("Error loading task. Items not loaded")
+            return []
+        }
+    }
     
     func tasksWithPredicate(predicate: NSPredicate?) -> [Task] {
         let request = NSFetchRequest(entityName: Task.className)

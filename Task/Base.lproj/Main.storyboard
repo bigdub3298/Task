@@ -115,13 +115,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <toolbar key="tableFooterView" hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Fb1-DH-udd">
-                            <rect key="frame" x="0.0" y="477" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <items>
-                                <barButtonItem systemItem="cancel" id="Cce-H8-wYj"/>
-                            </items>
-                        </toolbar>
                         <sections>
                             <tableViewSection headerTitle="Name" id="jIf-CF-1PO">
                                 <cells>
@@ -203,18 +196,17 @@
                         <connections>
                             <outlet property="dataSource" destination="ezc-C8-hJa" id="d8f-zI-trx"/>
                             <outlet property="delegate" destination="ezc-C8-hJa" id="n7m-KG-KXD"/>
-                            <outletCollection property="gestureRecognizers" destination="sdk-Kb-kjh" appends="YES" id="jDl-2j-Jsk"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Name" id="2Re-L7-R0P">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lws-0k-zaq">
                             <connections>
-                                <action selector="cancel:" destination="ezc-C8-hJa" id="iwj-9e-pFV"/>
+                                <action selector="cancelButtonTapped:" destination="ezc-C8-hJa" id="2GR-i2-mOh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qwB-XY-4No">
                             <connections>
-                                <segue destination="kdh-t1-qYc" kind="unwind" unwindAction="unwindToTaskListView:" id="KYa-K2-8nf"/>
+                                <action selector="saveButtonTapped:" destination="ezc-C8-hJa" id="og9-Y2-HLd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -225,10 +217,27 @@
                         <outlet property="navigationBarItem" destination="2Re-L7-R0P" id="7bH-9I-hXQ"/>
                         <outlet property="notesTextView" destination="tQP-oW-4ZY" id="zZI-A8-VSb"/>
                         <outlet property="saveButton" destination="qwB-XY-4No" id="h2k-Qx-1cS"/>
-                        <outlet property="toolbar" destination="Fb1-DH-udd" id="DVE-m8-o1q"/>
+                        <outlet property="toolbar" destination="Td7-GQ-PKm" id="8dU-e5-FhV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJ1-2h-Ken" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Td7-GQ-PKm">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <barButtonItem systemItem="cancel" id="y9w-7M-jaE">
+                            <connections>
+                                <action selector="cancelToolbarButtonTapped:" destination="ezc-C8-hJa" id="wFq-12-HgD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zxb-eb-pem"/>
+                        <barButtonItem style="done" systemItem="done" id="F6i-Em-tR9">
+                            <connections>
+                                <action selector="doneToolbarButtonTapped:" destination="ezc-C8-hJa" id="Ph3-bA-vpJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="YpL-wC-mXQ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -239,12 +248,6 @@
                         <action selector="datePickerValueChanged:" destination="ezc-C8-hJa" eventType="valueChanged" id="qCa-5o-Saw"/>
                     </connections>
                 </datePicker>
-                <exit id="kdh-t1-qYc" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="sdk-Kb-kjh">
-                    <connections>
-                        <action selector="userTappedView:" destination="ezc-C8-hJa" id="qU2-BY-AJ6"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2428" y="366"/>
         </scene>

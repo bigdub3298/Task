@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate{
+class TaskDetailTableViewController: UITableViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
@@ -19,7 +19,6 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate{
     
     var task: Task?
     var dueDateValue: NSDate?
-    var editingDueDate: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +31,7 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate{
         nameTextField.inputAccessoryView = toolbar
         dueDateTextField.inputAccessoryView = toolbar
         dueDateTextField.inputView = dueDatePicker
+        dueDatePicker.minimumDate = NSDate()
         notesTextView.inputAccessoryView = toolbar
         dueDatePicker.minimumDate = NSDate() 
     }
@@ -39,16 +39,6 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-
-    // MARK: - Text Field Delegate 
-    func textFieldDidBeginEditing(textField: UITextField) {
-        editingDueDate = true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        editingDueDate = false
     }
     
     // MARK: - Actions
@@ -104,9 +94,7 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate{
             saveButton.enabled = true
         }
         
-        if editingDueDate {
-            dueDateValue = dueDatePicker.date
-        }
+        dueDateValue = dueDatePicker.date
     }
     
     @IBAction func datePickerValueChanged(sender: UIDatePicker) {

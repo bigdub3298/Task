@@ -66,9 +66,9 @@ class TaskDetailTableViewController: UITableViewController {
     }
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
-        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        let isPresentingInAddTaskMode = presentingViewController is UINavigationController
         
-        if isPresentingInAddMealMode {
+        if isPresentingInAddTaskMode {
             dismissViewControllerAnimated(true, completion: nil)
         } else {
             navigationController!.popViewControllerAnimated(true)

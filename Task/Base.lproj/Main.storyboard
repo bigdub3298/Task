@@ -10,7 +10,7 @@
         <!--Tasks-->
         <scene sceneID="bjt-HF-kO6">
             <objects>
-                <tableViewController id="8kn-la-h5A" customClass="TaskListTableViewController" customModule="Task" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="8kn-la-h5A" customClass="TableListTableViewController" customModule="Task" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1oQ-xW-bhP">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -249,7 +249,7 @@
                     </connections>
                 </datePicker>
             </objects>
-            <point key="canvasLocation" x="2428" y="366"/>
+            <point key="canvasLocation" x="1708" y="366"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yzx-FT-uHL">
@@ -283,7 +283,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jU9-J8-CPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="1110"/>
+            <point key="canvasLocation" x="926" y="1118"/>
         </scene>
     </scenes>
     <resources>

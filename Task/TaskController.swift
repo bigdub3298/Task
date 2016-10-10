@@ -15,20 +15,11 @@ class TaskController {
     
     var tasks: [Task] = []
     
-    var incompleteTasks: [Task] {
-        let predicate = NSPredicate(format: "isComplete == FALSE")
-        return tasksWithPredicate(predicate)
-    }
-    
-    var completeTasks: [Task] {
-        let predicate = NSPredicate(format: "isComplete == TRUE")
-        return tasksWithPredicate(predicate)
-    }
-//    let fetchedResulteController: NSFetchedResultsController
+    let fetchedResulteController: NSFetchedResultsController
     
     
     init() {
-        /*
+        
         let fetchRequest = NSFetchRequest(entityName: Task.className)
         
         let completedSortDescriptor = NSSortDescriptor(key: "isComplete", ascending: true)
@@ -40,25 +31,20 @@ class TaskController {
         do {
             try fetchedResulteController.performFetch()
         } catch let error as NSError {
-            print("Unable to perform fetch request \(error.localizedDescription)")
+            print("Unable to perform fetch request - \(error.localizedDescription)")
         }
-    */
-        
-        tasks = fetchTasks()
     }
  
     
     // Create
     func addTask(task: Task) {
         Stack.saveToPersistentStore()
-        tasks = fetchTasks()
     }
     
     // Remove
     func removeTask(task: Task) {
         task.managedObjectContext?.deleteObject(task)
         Stack.saveToPersistentStore()
-        tasks = fetchTasks()
     }
     
     // Update
@@ -69,19 +55,11 @@ class TaskController {
         Stack.saveToPersistentStore()
     }
     
-    func fetchTasks() -> [Task] {
-        let request = NSFetchRequest(entityName: Task.className)
-        
-        let moc = Stack.sharedStack.managedObjectContext
-        
-        do {
-            return try moc.executeFetchRequest(request) as! [Task]
-        } catch {
-            print("Error loading task. Items not loaded")
-            return []
-        }
+    func isCompleteValueToggle(task: Task) {
+        task.isComplete = !task.isComplete.boolValue
+        Stack.saveToPersistentStore()
     }
-    
+ 
     func tasksWithPredicate(predicate: NSPredicate?) -> [Task] {
         let request = NSFetchRequest(entityName: Task.className)
         request.predicate = predicate

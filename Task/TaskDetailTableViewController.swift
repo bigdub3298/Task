@@ -27,26 +27,35 @@ class TaskDetailTableViewController: UITableViewController {
             updateWithTask(task)
         }
     
+        // Disables save button
         saveButton.enabled = false
+        
+        // Ensures that toolbar is used to finish selections
         nameTextField.inputAccessoryView = toolbar
         dueDateTextField.inputAccessoryView = toolbar
-        dueDateTextField.inputView = dueDatePicker
-        dueDatePicker.minimumDate = NSDate()
         notesTextView.inputAccessoryView = toolbar
-        dueDatePicker.minimumDate = NSDate() 
+        
+        // Makes the date picker the input view of the text field
+        dueDateTextField.inputView = dueDatePicker
+        
+        // Ensures that the due date cannot be set past the current date
+        dueDatePicker.minimumDate = NSDate()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     // MARK: - Actions
+    
     @IBAction func saveButtonTapped(sender: AnyObject) {
+        // Captures information to create new task
         guard let name = nameTextField.text else {return}
         let dueDate = dueDateValue
         let notes = notesTextView.text
         
+        // Controls new task vs updating a task
         if let task = self.task {
            TaskController.sharedController.updateTask(task, name: name, notes: notes, dueDate: dueDate)
         } else {
@@ -58,6 +67,7 @@ class TaskDetailTableViewController: UITableViewController {
         
         let isPresentingInAddMealMode = presentingViewController is UINavigationController
         
+        // Controls how we segue back to main view
         if isPresentingInAddMealMode {
             dismissViewControllerAnimated(true, completion: nil)
         } else {
@@ -68,6 +78,7 @@ class TaskDetailTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         let isPresentingInAddTaskMode = presentingViewController is UINavigationController
         
+        // Controls how we segue back to main view
         if isPresentingInAddTaskMode {
             dismissViewControllerAnimated(true, completion: nil)
         } else {
@@ -80,6 +91,7 @@ class TaskDetailTableViewController: UITableViewController {
         nameTextField.resignFirstResponder()
         notesTextView.resignFirstResponder()
         
+        // Ensures name text field is not empty
         if nameTextField.text != "" {
             saveButton.enabled = true
         }
@@ -90,10 +102,12 @@ class TaskDetailTableViewController: UITableViewController {
         nameTextField.resignFirstResponder()
         notesTextView.resignFirstResponder()
         
+        // Ensures name text field is not empty
         if nameTextField.text != "" {
             saveButton.enabled = true
         }
         
+        // Caputes date picker value
         dueDateValue = dueDatePicker.date
     }
     

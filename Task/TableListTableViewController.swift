@@ -31,6 +31,7 @@ class TableListTableViewController: UITableViewController, ButtonTableViewCellDe
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Gets the information of the sections 
         guard let sections = TaskController.sharedController.fetchedResulteController.sections else { return 0 }
         let sectionInfo = sections[section]
         return sectionInfo.numberOfObjects
@@ -48,6 +49,7 @@ class TableListTableViewController: UITableViewController, ButtonTableViewCellDe
     }
  
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // Gets the index of the section
         guard let sections = TaskController.sharedController.fetchedResulteController.sections,
             index = Int(sections[section].name) else { return nil }
         
@@ -72,10 +74,12 @@ class TableListTableViewController: UITableViewController, ButtonTableViewCellDe
     
     // MARK: - NSFetchResultController Delegate 
     
+    // Allows updates to happen at the same time
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         tableView.beginUpdates()
     }
     
+    // Handles insertion of a section
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
         
         switch type {
@@ -88,6 +92,7 @@ class TableListTableViewController: UITableViewController, ButtonTableViewCellDe
         }
     }
     
+    // Handles changing of a Managed Object
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         
         switch type {
@@ -108,6 +113,7 @@ class TableListTableViewController: UITableViewController, ButtonTableViewCellDe
         }
     }
     
+    // Ends updates
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()
     }
